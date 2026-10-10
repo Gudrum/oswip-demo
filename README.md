@@ -15,3 +15,9 @@ No hay experimento comercial ni analítica. Métrica de entrega: rutas y control
 
 ## Validación
 2026-10-09: comprobación de JS, archivos de imagen, navegación y publicación. El selector muestra áreas ilustrativas; el esquema no es un plano técnico ni cambia por tipología.
+
+## Recorrido con renders — 2026-10-09
+Alcance: recorrido por tres vistas conceptuales, puntos para avanzar, miniaturas, zoom y desplazamiento horizontal. No es geometría 3D navegable ni panorama esférico 360°.
+Assets: assets/render-exterior.jpg, assets/render-living.jpg, assets/render-roof.jpg. Generados con imagegen integrado, convertidos a JPEG para la web.
+Prompts: visualización arquitectónica fotorrealista panorámica de una torre residencial costera con balcones curvos de piedra clara y vegetación; interior con roble claro, sofá crema y vidrio curvo abierto al balcón; terraza con piscina infinita, tumbonas y vista costera. Luz dorada, sin textos ni marcas de agua.
+Aceptación: acceso desde portada y menú; exterior → interior → terraza → exterior; miniaturas seleccionan ambiente; zoom limitado 100–160%; revisión visual en escritorio y móvil; publicación Pages del commit correspondiente.
