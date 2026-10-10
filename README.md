@@ -48,3 +48,6 @@ QA: node --check app.js aprobado. Revisión de sala de frente, lateral y unión 
 
 ### Sala reescalada para revisión
 La sala usa `assets/pano-living-4096.jpg` (4096 × 2048), exportada desde la variante con nitidez mejorada mediante IA. El aumento de dimensiones es interpolado; no representa detalle nativo de un render 4K. Acceso y terraza conservan sus recursos anteriores.
+
+### Todos los ambientes: revisión 6144
+Acceso, Sala y Terraza usan archivos de 6144 × 3072 px, JPEG calidad 98, reescalados desde las fuentes existentes. Sala conserva la variante de nitidez mejorada. Son dimensiones interpoladas, no detalle nativo 6K; la nitidez de las fuentes sigue siendo el límite. Portada y navegación permanecen sin cambios.
