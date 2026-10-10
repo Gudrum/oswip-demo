@@ -8,7 +8,7 @@ espacios:()=>`<section><span class="eyebrow">Los espacios</span><h1 class="secti
 contacto:()=>`<section class="split"><div><span class="eyebrow">Conversemos</span><h1 class="section-title">Imagina tu<br>próximo lugar.</h1><p class="lead">Cada gran proyecto comienza con una conversación.</p></div><div class="contact-card"><h2>Una experiencia de OSWIP</h2><p>Esta demo muestra cómo explorar un proyecto inmobiliario de forma visual e intuitiva.</p><a class="pill light" href="#residencias">Volver a las residencias ${arrow}</a><p class="notice">Demo conceptual, sin ventas ni recepción de datos personales. Las imágenes son representaciones conceptuales creadas para esta demo.</p><a class="notice" href="#recorrido">Explorar los ambientes en 360°</a></div></section>`};
 const tourScenes=[
  {id:'access',image:'pano-access-designed.jpg',name:'Acceso',description:'El inicio del recorrido.'},
- {id:'living',image:'pano-living-sharp.png',name:'Sala',description:'Un espacio abierto al horizonte.'},
+ {id:'living',image:'pano-living-4096.jpg',name:'Sala',description:'Un espacio abierto al horizonte.'},
  {id:'terrace',image:'pano-terrace-designed.jpg',name:'Terraza',description:'El exterior, en todas las direcciones.'}
 ];
 let panoramaViewer=null,tourIndex=0;
