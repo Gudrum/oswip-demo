@@ -13,7 +13,7 @@ const tourScenes=[
 ];
 let tourIndex=0,tourX=0,tourY=0,tourMoving=false,tourTimer;
 const tourImages=tourScenes.map(s=>{const image=new Image();image.src='assets/'+s.image;return image});
-views.recorrido=()=>`<section class="tour game-tour" aria-label="Recorrido por puntos"><div class="tour-viewport" id="tour-viewport" aria-label="Arrastra para mirar alrededor"><div class="tour-world" id="tour-world"><div id="tour-points"></div></div></div><div class="tour-heading"><span class="eyebrow">Recorrido por puntos</span><h1 id="tour-name"></h1><p id="tour-status" role="status" aria-live="polite"></p></div><div class="tour-hud"><div class="route-map" aria-label="Mapa del recorrido">${tourScenes.map((s,i)=>`<button data-node="${i}" aria-label="Ir a ${s.name}"><span>${i+1}</span><small>${s.name}</small></button>`).join('')}</div><div class="movement"><button data-move="-1" id="step-back" aria-label="Retroceder al punto anterior">↓<small>Volver</small></button><button data-look="-1" aria-label="Mirar a la izquierda">←</button><button data-move="1" id="step-forward" aria-label="Avanzar al siguiente punto">↑<small>Avanzar</small></button><button data-look="1" aria-label="Mirar a la derecha">→</button><button id="center-view" aria-label="Centrar vista">◎</button></div><p class="tour-help">Toca un punto para caminar · Arrastra para mirar<span>W / ↑ avanzar · S / ↓ volver · A / D mirar</span></p><small class="tour-disclaimer">Recorrido entre renders conceptuales</small></div></section>`;
+views.recorrido=()=>`<section class="tour game-tour" aria-label="Recorrido por puntos"><div class="tour-viewport" id="tour-viewport" aria-label="Arrastra para mirar alrededor"><div class="tour-world" id="tour-world"><div id="tour-points"></div></div></div><div class="tour-heading"><span class="eyebrow">Recorrido por puntos</span><h1 id="tour-name"></h1><p id="tour-status" role="status" aria-live="polite"></p></div><div class="tour-hud"><div class="route-map" aria-label="Mapa del recorrido">${tourScenes.map((s,i)=>`<button data-node="${i}" aria-label="Ir a ${s.name}"><span>${i+1}</span><small>${s.name}</small></button>`).join('')}</div><p class="tour-help">Haz clic en un punto para caminar · Arrastra con el mouse para mirar</p><small class="tour-disclaimer">Recorrido entre renders conceptuales</small></div></section>`;
 function paintLook(){const world=document.querySelector('#tour-world');if(world)world.style.transform=`scale(1.18) translate(${tourX}%,${tourY}%)`}
 function setTour(index){
  tourIndex=Math.max(0,Math.min(tourScenes.length-1,index));tourX=0;tourY=0;
@@ -22,10 +22,9 @@ function setTour(index){
  document.querySelector('#tour-name').textContent=current.name;
  document.querySelector('#tour-status').textContent=`Punto ${tourIndex+1} de ${tourScenes.length} · ${current.description}`;
  const points=[];
- if(tourIndex>0)points.push(`<button class="walk-point back-point" data-walk="${tourIndex-1}" style="left:28%;top:65%" aria-label="Volver a ${tourScenes[tourIndex-1].name}"><span aria-hidden="true">↓</span><small>Volver</small></button>`);
- if(tourIndex<tourScenes.length-1)points.push(`<button class="walk-point" data-walk="${tourIndex+1}" style="left:${current.x}%;top:${Math.min(current.y,61)}%" aria-label="Caminar a ${tourScenes[tourIndex+1].name}"><span aria-hidden="true">↑</span><small>${tourScenes[tourIndex+1].name}</small></button>`);
+ if(tourIndex>0)points.push(`<button class="walk-point back-point" data-walk="${tourIndex-1}" style="left:28%;top:65%" aria-label="Volver a ${tourScenes[tourIndex-1].name}"><span aria-hidden="true">●</span><small>Volver</small></button>`);
+ if(tourIndex<tourScenes.length-1)points.push(`<button class="walk-point" data-walk="${tourIndex+1}" style="left:${current.x}%;top:${Math.min(current.y,61)}%" aria-label="Caminar a ${tourScenes[tourIndex+1].name}"><span aria-hidden="true">●</span><small>${tourScenes[tourIndex+1].name}</small></button>`);
  document.querySelector('#tour-points').innerHTML=points.join('');
- document.querySelector('#step-back').disabled=tourIndex===0;document.querySelector('#step-forward').disabled=tourIndex===tourScenes.length-1;
  content.querySelectorAll('[data-node]').forEach(button=>{const active=Number(button.dataset.node)===tourIndex;button.classList.toggle('active',active);button.setAttribute('aria-current',active?'step':'false')});
 }
 function walkTo(index){
@@ -42,20 +41,11 @@ content.addEventListener('click',e=>{
  const button=e.target.closest('button');if(!button)return;
  if(button.dataset.walk!==undefined)walkTo(Number(button.dataset.walk));
  if(button.dataset.node!==undefined)walkTo(Number(button.dataset.node));
- if(button.dataset.move)walkTo(tourIndex+Number(button.dataset.move));
- if(button.dataset.look){tourX=Math.max(-7,Math.min(7,tourX-Number(button.dataset.look)*2));paintLook()}
- if(button.id==='center-view'){tourX=0;tourY=0;paintLook()}
 });
 let dragView=null;
 content.addEventListener('pointerdown',e=>{if(e.target.closest('button')||!e.target.closest('#tour-viewport')||tourMoving)return;dragView={id:e.pointerId,x:e.clientX,y:e.clientY,startX:tourX,startY:tourY};e.target.setPointerCapture(e.pointerId)});
 content.addEventListener('pointermove',e=>{if(!dragView||e.pointerId!==dragView.id)return;tourX=Math.max(-7,Math.min(7,dragView.startX+(e.clientX-dragView.x)/innerWidth*22));tourY=Math.max(-6,Math.min(6,dragView.startY+(e.clientY-dragView.y)/innerHeight*18));paintLook()});
 const stopDrag=()=>{dragView=null};content.addEventListener('pointerup',stopDrag);content.addEventListener('pointercancel',stopDrag);
-document.addEventListener('keydown',e=>{
- if(location.hash!=='#recorrido'||!menu.hidden||gallery.open||e.ctrlKey||e.metaKey||e.altKey||e.target.closest('input,textarea,select,[contenteditable="true"]'))return;
- const key=e.key.toLowerCase();if(!['w','s','a','d','arrowup','arrowdown','arrowleft','arrowright'].includes(key))return;e.preventDefault();
- if(['w','arrowup','s','arrowdown'].includes(key)){if(!e.repeat)walkTo(tourIndex+(['w','arrowup'].includes(key)?1:-1))}
- else {tourX=Math.max(-7,Math.min(7,tourX+(['a','arrowleft'].includes(key)?1:-1)));paintLook()}
-});
 window.addEventListener('blur',stopDrag);
 function closeMenu(){menu.hidden=true;menuButton.setAttribute('aria-expanded','false')}
 function render(){clearTimeout(tourTimer);tourMoving=false;dragView=null;const key=location.hash.slice(1)||'inicio';content.innerHTML=(views[key]||views.inicio)();scene.style.backgroundImage=`url('assets/${key==='contacto'?'terrace':key==='residencias'?'interior':'render-exterior'}.jpg')`;document.body.classList.toggle('in-tour',key==='recorrido');scene.style.transform='';scene.style.backgroundPosition='';if(key==='recorrido')setTour(tourIndex);closeMenu();window.scrollTo(0,0);document.title=`OSWIP · ${key==='inicio'?'Residences':key.charAt(0).toUpperCase()+key.slice(1)}`}

@@ -28,3 +28,6 @@ Decisión: ruta exterior ↔ interior ↔ terraza; puntos anclados a la vista, m
 Aceptación: regreso disponible salvo primer punto; avance detenido al final; posición actual visible; controles sin hover; teclado suspendido mientras menú o diálogo están abiertos; puntos y render comparten desplazamiento; sin scroll accidental durante recorrido.
 Validación local: node --check app.js aprobado. Navegador escritorio: W avanzó del punto 1 al 2, clic en punto llegó al 3 y deshabilitó avance, S regresó al 2, arrastre actualizó transformación de cámara. Vista 390×844: controles visibles, retroceso volvió al punto 1 y quedó deshabilitado. Revisión heurística orientativa: antes 6/10 (regreso y orientación, severidad mayor); después 9/10, pendiente prueba con usuarios reales. Sin métricas de uso ni aceptación comercial.
 Recuperación: revertir este commit para restaurar el recorrido anterior.
+
+## Ajuste a mouse — 2026-10-09
+Solicitud: movimiento con mouse, sin flechas. Se retiran el panel de flechas y los atajos WASD/flechas. Clic en puntos circulares para cambiar de ubicación; arrastre para mirar. Mapa de puntos clicable y activación estándar de botones por teclado conservada por accesibilidad. Escape cierra menú.
