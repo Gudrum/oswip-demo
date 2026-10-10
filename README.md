@@ -31,3 +31,12 @@ Recuperación: revertir este commit para restaurar el recorrido anterior.
 
 ## Ajuste a mouse — 2026-10-09
 Solicitud: movimiento con mouse, sin flechas. Se retiran el panel de flechas y los atajos WASD/flechas. Clic en puntos circulares para cambiar de ubicación; arrastre para mirar. Mapa de puntos clicable y activación estándar de botones por teclado conservada por accesibilidad. Escape cierra menú.
+
+## Recorrido esférico real — 2026-10-09
+Sustituye el desplazamiento de fotografías planas por un visor WebGL de panoramas completos. Portada conservada con marca centrada y botón Ingresar; enlace Inicio visible dentro del recorrido.
+Recursos genéricos: tres renders equirectangulares 3072×1536 (360° horizontal / 180° vertical) desde cámaras de un mismo escenario 3D. Acceso ↔ sala ↔ terraza mediante puntos en coordenadas esféricas. Arrastre con mouse/táctil para giro sin límite horizontal y vista vertical; rueda/pellizco para zoom; sin panel de flechas ni atajos de movimiento.
+Generación canónica: scripts/render_demo.py con Blender 5.2.1 LTS/Cycles, 12 muestras, exposición -1.5 EV y denoise. Modelo editable assets/demo-360.blend. La primera generación IA falló por conexión; un segundo resultado IA no se incorporó porque se eligió geometría 3D compartida para continuidad exacta de las tres cámaras.
+Dependencia: Pannellum 2.5.7 vendorizado, licencia MIT en vendor/PANNELLUM-LICENSE. Documentación: https://pannellum.org/documentation/examples/tour/ y https://pannellum.org/documentation/reference/.
+Criterios: entrada Inicio → Ingresar; giro completo sin bordes; puntos de ida/regreso; panoramas de las tres ubicaciones; regreso a Inicio; funcionamiento local y publicación GitHub Pages. No representa un inmueble real ni geometría de movimiento libre.
+Recuperación: revertir el commit de integración. No hay servicios externos requeridos para visor ni panoramas; fuentes tipográficas externas conservadas de la demo.
+Validación: node --check app.js aprobado; recursos de panorama 3072×1536; giro con arrastre observado en visor WebGL; salto por punto Acceso→Sala confirmado. Portada Inicio y botón Ingresar observados en navegador. Los assets generados son renders 3D genéricos de demostración, con detalle simplificado.
