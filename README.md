@@ -21,3 +21,10 @@ Alcance: recorrido por tres vistas conceptuales, puntos para avanzar, miniaturas
 Assets: assets/render-exterior.jpg, assets/render-living.jpg, assets/render-roof.jpg. Generados con imagegen integrado, convertidos a JPEG para la web.
 Prompts: visualización arquitectónica fotorrealista panorámica de una torre residencial costera con balcones curvos de piedra clara y vegetación; interior con roble claro, sofá crema y vidrio curvo abierto al balcón; terraza con piscina infinita, tumbonas y vista costera. Luz dorada, sin textos ni marcas de agua.
 Aceptación: acceso desde portada y menú; exterior → interior → terraza → exterior; miniaturas seleccionan ambiente; zoom limitado 100–160%; revisión visual en escritorio y móvil; publicación Pages del commit correspondiente.
+
+## Interacción por puntos — 2026-10-09
+Problema: la interacción previa parecía una galería, sin regreso espacial claro. Usuario: visitante de demo que explora con teclado, ratón o controles táctiles.
+Decisión: ruta exterior ↔ interior ↔ terraza; puntos anclados a la vista, mapa de posición, W/S o ↑/↓ para avanzar/regresar, A/D o ←/→ para mirar, arrastre y botón para centrar. Transición breve de acercamiento respetando movimiento reducido. No se agrega geometría 3D ni panorama 360°; el movimiento se realiza entre renders.
+Aceptación: regreso disponible salvo primer punto; avance detenido al final; posición actual visible; controles sin hover; teclado suspendido mientras menú o diálogo están abiertos; puntos y render comparten desplazamiento; sin scroll accidental durante recorrido.
+Validación local: node --check app.js aprobado. Navegador escritorio: W avanzó del punto 1 al 2, clic en punto llegó al 3 y deshabilitó avance, S regresó al 2, arrastre actualizó transformación de cámara. Vista 390×844: controles visibles, retroceso volvió al punto 1 y quedó deshabilitado. Revisión heurística orientativa: antes 6/10 (regreso y orientación, severidad mayor); después 9/10, pendiente prueba con usuarios reales. Sin métricas de uso ni aceptación comercial.
+Recuperación: revertir este commit para restaurar el recorrido anterior.
